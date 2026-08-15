@@ -1,0 +1,5 @@
+EDITOR=code
+VISUAL=code
+SUDO_EDITOR=code
+BROWSER=google-chrome-stable
+TERMINAL=alacritty

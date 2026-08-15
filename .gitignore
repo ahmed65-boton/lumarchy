@@ -1,0 +1,7 @@
+/.build/
+/custom_repo/
+/output/
+/*.log
+*.iso
+*.iso.sha256
+*.pkg.tar.*

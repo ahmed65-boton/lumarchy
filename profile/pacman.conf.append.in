@@ -1,0 +1,4 @@
+
+[custom_repo]
+SigLevel = Optional TrustAll
+Server = __CUSTOM_REPO_URI__

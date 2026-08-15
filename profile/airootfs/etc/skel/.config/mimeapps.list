@@ -1,0 +1,11 @@
+[Default Applications]
+text/plain=visual-studio-code.desktop;
+text/x-makefile=visual-studio-code.desktop;
+application/x-shellscript=visual-studio-code.desktop;
+text/x-python=visual-studio-code.desktop;
+
+[Added Associations]
+text/plain=visual-studio-code.desktop;
+text/x-makefile=visual-studio-code.desktop;
+application/x-shellscript=visual-studio-code.desktop;
+text/x-python=visual-studio-code.desktop;

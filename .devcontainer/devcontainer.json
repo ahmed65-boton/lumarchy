@@ -1,0 +1,22 @@
+{
+  "name": "Lumarchy ISO Builder",
+  "image": "archlinux:base-devel",
+  "runArgs": [
+    "--privileged"
+  ],
+  "containerUser": "root",
+  "remoteUser": "root",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "containerEnv": {
+    "TMPFS_SIZE": "8G"
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "timonwong.shellcheck",
+        "foxundermoon.shell-format"
+      ]
+    }
+  }
+}

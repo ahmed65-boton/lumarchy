@@ -1,0 +1,8 @@
+{
+  "defaults": {
+    "editor": "code",
+    "browser": "google-chrome-stable",
+    "terminal": "alacritty",
+    "shell": "zsh"
+  }
+}
