@@ -45,7 +45,7 @@ done
 
 grep -q 'User=liveuser' "${PROJECT_ROOT}/profile/airootfs/etc/sddm.conf.d/autologin.conf" \
   || fail "SDDM autologin user"
-grep -q 'bind = \$mainMod, E, exec, code' "${PROJECT_ROOT}/profile/airootfs/etc/skel/.config/hypr/hyprland.conf" \
+grep -q "bind = \$mainMod, E, exec, code" "${PROJECT_ROOT}/profile/airootfs/etc/skel/.config/hypr/hyprland.conf" \
   || fail "VS Code Hyprland binding"
 
 if (( failures > 0 )); then
