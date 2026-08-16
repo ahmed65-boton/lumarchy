@@ -14,7 +14,7 @@ stage_profile() {
     "${STAGED_PROFILE}/packages.x86_64" \
     "${PROJECT_ROOT}/profile/packages.x86_64" \
     | sort -u \
-    | grep -Ev '^(neovim|vim|chromium|lazygit)$' \
+    | grep -Ev '^(neovim|vim|chromium|lazygit|grml-zsh-config)$' \
     > "${STAGED_PROFILE}/packages.x86_64.new"
   mv -- "${STAGED_PROFILE}/packages.x86_64.new" "${STAGED_PROFILE}/packages.x86_64"
 
