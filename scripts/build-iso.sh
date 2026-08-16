@@ -4,7 +4,7 @@ build_iso() {
   require_root
   [[ -x ${STAGED_PROFILE}/profiledef.sh ]] || die "Staged profile is incomplete."
 
-  safe_remove_tree "${ARCHISO_WORK_DIR}" "${TMPFS_MOUNT}"
+  safe_remove_tree "${ARCHISO_WORK_DIR}" "${BUILD_STATE_DIR}"
   mkdir -p -- "${ARCHISO_WORK_DIR}" "${OUTPUT_DIR}"
   find "${OUTPUT_DIR}" -maxdepth 1 -type f \
     \( -name 'lumarchy-*.iso' -o -name 'lumarchy-*.iso.sha256' \) -delete

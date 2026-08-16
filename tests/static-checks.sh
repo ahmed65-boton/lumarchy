@@ -11,7 +11,7 @@ fail() {
 
 while IFS= read -r -d '' script; do
   bash -n "${script}" || fail "Bash syntax: ${script#"${PROJECT_ROOT}/"}"
-done < <(find "${PROJECT_ROOT}" -type f -name '*.sh' -print0)
+done < <(find "${PROJECT_ROOT}" -path "${PROJECT_ROOT}/.build" -prune -o -type f -name '*.sh' -print0)
 
 if command -v shellcheck >/dev/null 2>&1; then
   shellcheck -x -P "${PROJECT_ROOT}" \
