@@ -1,0 +1,45 @@
+{
+  "archinstall-language": "English",
+  "audio_config": {"audio": "pipewire"},
+  "bootloader_config": {
+    "bootloader": "Systemd-boot",
+    "uki": false,
+    "removable": false
+  },
+  "custom_commands": [
+    "systemctl enable NetworkManager.service sddm.service systemd-timesyncd.service",
+    "systemctl enable bluetooth.service || true",
+    "systemctl set-default graphical.target",
+    "for user in /home/*; do [ -d \"$user\" ] || continue; username=${user##*/}; usermod --shell /bin/zsh \"$username\"; done",
+    "for home in /home/*; do [ -d \"$home\" ] || continue; cp -an /etc/skel/. \"$home/\"; owner=$(stat -c '%U:%G' \"$home\"); chown -R \"$owner\" \"$home\"; done",
+    "sed -i '/^\\[custom_repo\\]$/,/^$/d' /etc/pacman.conf || true"
+  ],
+  "hostname": "lumarchy",
+  "kernels": ["linux"],
+  "locale_config": {
+    "kb_layout": "us",
+    "sys_enc": "UTF-8",
+    "sys_lang": "en_US"
+  },
+  "mirror_config": {
+    "custom_repositories": [
+      {
+        "name": "custom_repo",
+        "url": "file:///opt/lumarchy/repo",
+        "sign_check": "Optional",
+        "sign_option": "TrustAll"
+      }
+    ]
+  },
+  "network_config": {"type": "iso"},
+  "no_pkg_lookups": true,
+  "ntp": true,
+  "offline": false,
+  "packages": ["lumarchy-config"],
+  "pacman_config": {"color": true, "parallel_downloads": 5},
+  "profile_config": null,
+  "script": "guided",
+  "silent": false,
+  "swap": {"enabled": true, "algorithm": "zstd"},
+  "timezone": "Asia/Karachi"
+}

@@ -28,9 +28,15 @@ required_packages=(
   google-chrome
   visual-studio-code-bin
   powershell-bin
+  git
+  python
   hyprland
-  quickshell
+  hyprpaper
+  waybar
+  wofi
+  mako
   alacritty
+  archinstall
 )
 for package in "${required_packages[@]}"; do
   grep -qx "${package}" "${PROJECT_ROOT}/profile/packages.x86_64" \
@@ -38,7 +44,9 @@ for package in "${required_packages[@]}"; do
 done
 
 for package in neovim vim chromium lazygit; do
-  if grep -Eq "^[[:space:]]*${package}([[:space:]]|$)" "${PROJECT_ROOT}/profile/packages.x86_64"; then
+  if grep -Eq "(^|[[:space:]])${package}([[:space:]]|$)" \
+    "${PROJECT_ROOT}/profile/packages.x86_64" \
+    "${PROJECT_ROOT}/packages/lumarchy-config/PKGBUILD"; then
     fail "Blacklisted package appears in manifest: ${package}"
   fi
 done
@@ -47,6 +55,23 @@ grep -q 'User=liveuser' "${PROJECT_ROOT}/profile/airootfs/etc/sddm.conf.d/autolo
   || fail "SDDM autologin user"
 grep -q "bind = \$mainMod, E, exec, code" "${PROJECT_ROOT}/profile/airootfs/etc/skel/.config/hypr/hyprland.conf" \
   || fail "VS Code Hyprland binding"
+
+for wallpaper in wallpaper1.jpg wallpaper2.jpg wallpaper3.jpg; do
+  [[ -s ${PROJECT_ROOT}/wallpapers/${wallpaper} ]] || fail "Missing ${wallpaper}"
+done
+
+grep -q 'path = /usr/share/backgrounds/lumarchy/wallpaper1.jpg' \
+  "${PROJECT_ROOT}/profile/airootfs/etc/skel/.config/hypr/hyprpaper.conf" \
+  || fail "Hyprpaper default wallpaper"
+
+grep -q '"packages": \["lumarchy-config"\]' \
+  "${PROJECT_ROOT}/profile/airootfs/etc/lumarchy/archinstall.json" \
+  || fail "Installer Lumarchy package"
+
+python -m json.tool "${PROJECT_ROOT}/profile/airootfs/etc/lumarchy/archinstall.json" >/dev/null \
+  || fail "Installer JSON"
+python -m json.tool "${PROJECT_ROOT}/profile/airootfs/etc/skel/.config/waybar/config.jsonc" >/dev/null \
+  || fail "Waybar JSON"
 
 if (( failures > 0 )); then
   printf '%s static check(s) failed.\n' "${failures}" >&2

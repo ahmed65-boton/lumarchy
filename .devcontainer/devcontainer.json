@@ -8,7 +8,7 @@
   "remoteUser": "root",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "containerEnv": {
-    "TMPFS_SIZE": "8G"
+    "TMPFS_SIZE": "4G"
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "customizations": {

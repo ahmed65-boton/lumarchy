@@ -1,0 +1,8 @@
+width=540
+height=360
+location=center
+show=drun
+prompt=Launch...
+allow_images=true
+insensitive=true
+term=alacritty

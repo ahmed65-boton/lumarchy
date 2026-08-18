@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+choice=$(printf 'Lock\nLog out\nReboot\nPower off\n' | wofi --dmenu --prompt 'Power') || exit 0
+case "${choice}" in
+  Lock) swaylock -f ;;
+  'Log out') hyprctl dispatch exit ;;
+  Reboot) systemctl reboot ;;
+  'Power off') systemctl poweroff ;;
+esac

@@ -1,0 +1,58 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 32,
+  "spacing": 6,
+  "modules-left": ["custom/lumarchy", "hyprland/workspaces", "custom/install", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": ["tray", "network", "pulseaudio", "battery", "custom/power"],
+  "custom/lumarchy": {
+    "format": "  LUMARCHY",
+    "tooltip": false,
+    "on-click": "pkill wofi || wofi --show drun"
+  },
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "persistent-workspaces": {"*": 5}
+  },
+  "custom/install": {
+    "exec": "test -e /run/archiso && echo '  Install' || true",
+    "interval": 30,
+    "tooltip": "Install Lumarchy to a disk",
+    "on-click": "alacritty -e sudo lumarchy-install"
+  },
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 45,
+    "separate-outputs": true
+  },
+  "clock": {
+    "format": "{:%A  %B %d   %H:%M}",
+    "format-alt": "{:%Y-%m-%d  %H:%M:%S}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  },
+  "network": {
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰖪",
+    "tooltip-format": "{ifname}: {ipaddr}"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟",
+    "format-icons": {"default": ["", "", ""]},
+    "on-click": "pavucontrol"
+  },
+  "battery": {
+    "states": {"warning": 30, "critical": 15},
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁽", "󰁿", "󰂁", "󰁹"]
+  },
+  "tray": {"spacing": 8},
+  "custom/power": {
+    "format": "",
+    "tooltip": "Power menu",
+    "on-click": "lumarchy-power-menu"
+  }
+}

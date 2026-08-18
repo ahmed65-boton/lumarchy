@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+if [[ ${EUID} -ne 0 ]]; then
+  exec sudo -- "$0" "$@"
+fi
+
+clear
+cat <<'EOF'
+╭────────────────────────────────────────────╮
+│            LUMARCHY INSTALLER              │
+│  Hyprland • Chrome • VS Code • Git/Python  │
+╰────────────────────────────────────────────╯
+
+This guided installer can erase ze disk you choose.
+Read every disk screen carefully and keep backups.
+EOF
+
+read -r -p "Press Enter to continue, or Ctrl+C to cancel... "
+exec archinstall --config /etc/lumarchy/archinstall.json

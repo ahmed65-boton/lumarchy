@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Install Lumarchy
+Comment=Install Lumarchy to a disk
+Exec=alacritty -e sudo lumarchy-install
+Icon=system-software-install
+Terminal=false
+Type=Application
+Categories=System;

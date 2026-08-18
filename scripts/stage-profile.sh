@@ -19,6 +19,11 @@ stage_profile() {
   mv -- "${STAGED_PROFILE}/packages.x86_64.new" "${STAGED_PROFILE}/packages.x86_64"
 
   cp -a -- "${PROJECT_ROOT}/profile/airootfs/." "${STAGED_PROFILE}/airootfs/"
+  install -d -m 0755 "${STAGED_PROFILE}/airootfs/usr/share/backgrounds/lumarchy"
+  install -m 0644 "${PROJECT_ROOT}/wallpapers/"*.jpg \
+    "${STAGED_PROFILE}/airootfs/usr/share/backgrounds/lumarchy/"
+  install -d -m 0755 "${STAGED_PROFILE}/airootfs/opt/lumarchy/repo"
+  cp -a -- "${CUSTOM_REPO_DIR}/." "${STAGED_PROFILE}/airootfs/opt/lumarchy/repo/"
   install -m 0755 "${PROJECT_ROOT}/profile/lumarchy-customize.sh" \
     "${STAGED_PROFILE}/airootfs/root/lumarchy-customize.sh"
 

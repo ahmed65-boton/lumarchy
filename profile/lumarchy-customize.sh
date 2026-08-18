@@ -25,6 +25,7 @@ printf '%%wheel ALL=(ALL:ALL) NOPASSWD: ALL\n' > /etc/sudoers.d/10-liveuser
 chmod 0440 /etc/sudoers.d/10-liveuser
 
 chown -R "${live_user}:${live_user}" "/home/${live_user}"
+chmod 0755 /usr/local/bin/lumarchy-*
 
 systemctl enable NetworkManager.service
 systemctl enable bluetooth.service

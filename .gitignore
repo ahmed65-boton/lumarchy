@@ -1,7 +1,6 @@
 /.build/
 /custom_repo/
-/output/
-/*.log
-*.iso
-*.iso.sha256
-*.pkg.tar.*
+/output/*.iso
+/output/*.iso.sha256
+/output/*.log
+/lumarchy-run.log

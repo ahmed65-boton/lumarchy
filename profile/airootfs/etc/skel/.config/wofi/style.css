@@ -1,0 +1,18 @@
+window {
+  background-color: rgba(18, 13, 24, 0.96);
+  border: 2px solid #c678dd;
+  border-radius: 12px;
+  font-family: "Noto Sans";
+  font-size: 15px;
+}
+#input {
+  margin: 12px;
+  padding: 10px;
+  color: #eadff2;
+  background-color: #21162b;
+  border: 1px solid #4b3260;
+  border-radius: 8px;
+}
+#entry { padding: 9px 12px; color: #d8c9e2; }
+#entry:selected { background-color: #7a4b91; color: #ffffff; border-radius: 7px; }
+#img { margin-right: 10px; }

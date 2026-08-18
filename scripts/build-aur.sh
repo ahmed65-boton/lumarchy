@@ -6,6 +6,8 @@ readonly -a AUR_PACKAGES=(
   powershell-bin
 )
 
+readonly LOCAL_PACKAGE=lumarchy-config
+
 ensure_build_user() {
   if ! id "${BUILD_USER}" >/dev/null 2>&1; then
     useradd --create-home --shell /bin/bash "${BUILD_USER}"
@@ -46,6 +48,40 @@ build_one_aur_package() {
   (( found == 1 )) || die "${package} produced no .pkg.tar.zst package."
 }
 
+build_lumarchy_config_package() {
+  local package_dir="${AUR_BUILD_ROOT}/${LOCAL_PACKAGE}"
+  local assembled_root="${package_dir}/assembled-rootfs"
+
+  log "Building ${LOCAL_PACKAGE} from ze repository desktop files."
+  mkdir -p -- "${package_dir}" "${assembled_root}"
+  cp -a -- "${PROJECT_ROOT}/packages/${LOCAL_PACKAGE}/." "${package_dir}/"
+  cp -a -- "${PROJECT_ROOT}/packages/${LOCAL_PACKAGE}/rootfs/." "${assembled_root}/"
+
+  install -d "${assembled_root}/etc/skel" "${assembled_root}/usr/local/bin"
+  cp -a -- "${PROJECT_ROOT}/profile/airootfs/etc/skel/." "${assembled_root}/etc/skel/"
+  install -m 0755 \
+    "${PROJECT_ROOT}/profile/airootfs/usr/local/bin/lumarchy-wallpaper-next" \
+    "${PROJECT_ROOT}/profile/airootfs/usr/local/bin/lumarchy-wallpaper-rotate" \
+    "${PROJECT_ROOT}/profile/airootfs/usr/local/bin/lumarchy-power-menu" \
+    "${assembled_root}/usr/local/bin/"
+
+  # Ze PKGBUILD expects ze top-level directory inside ze archive to be rootfs.
+  tar --transform='s|^assembled-rootfs|rootfs|' \
+    -C "${package_dir}" -cf "${package_dir}/lumarchy-rootfs.tar" assembled-rootfs
+  tar -C "${PROJECT_ROOT}" -cf "${package_dir}/lumarchy-wallpapers.tar" wallpapers
+  chown -R "${BUILD_USER}:${BUILD_USER}" "${package_dir}"
+
+  runuser -u "${BUILD_USER}" -- env \
+    HOME="$(getent passwd "${BUILD_USER}" | cut -d: -f6)" \
+    MAKEFLAGS="-j$(nproc)" \
+    bash -c 'cd "$1" && makepkg --nodeps --noconfirm --cleanbuild --clean' _ "${package_dir}"
+
+  local package_file
+  package_file=$(find "${package_dir}" -maxdepth 1 -type f -name '*.pkg.tar.zst' -print -quit)
+  [[ -n ${package_file} ]] || die "${LOCAL_PACKAGE} produced no package archive."
+  install -m 0644 "${package_file}" "${CUSTOM_REPO_DIR}/"
+}
+
 build_aur_repo() {
   require_root
   ensure_build_user
@@ -63,6 +99,7 @@ build_aur_repo() {
   for package in "${AUR_PACKAGES[@]}"; do
     build_one_aur_package "${package}"
   done
+  build_lumarchy_config_package
 
   local -a package_files=()
   mapfile -d '' package_files < <(repo_packages)

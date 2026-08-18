@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -u
+
+for _ in {1..30}; do
+  hyprctl hyprpaper listactive >/dev/null 2>&1 && break
+  sleep 0.25
+done
+
+while true; do
+  sleep 900
+  lumarchy-wallpaper-next || true
+done

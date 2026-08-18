@@ -20,7 +20,7 @@ preflight() {
   local free_kib available_kib
   free_kib=$(df -Pk "${PROJECT_ROOT}" | awk 'NR == 2 {print $4}')
   available_kib=$(awk '/^MemAvailable:/ {print $2}' /proc/meminfo)
-  (( free_kib >= 15 * 1024 * 1024 )) || die "At least 15 GiB of free disk space is required."
+  (( free_kib >= 20 * 1024 * 1024 )) || die "At least 20 GiB of free disk space is required."
   (( available_kib >= 6 * 1024 * 1024 )) || die "At least 6 GiB of available RAM is required; 16 GiB is recommended."
 
   log "Preflight passed on ${PRETTY_NAME}; disk and memory look usable."

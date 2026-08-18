@@ -1,0 +1,18 @@
+format = "$directory$git_branch$git_status$python$character"
+add_newline = true
+
+[directory]
+style = "bold #d98df0"
+truncation_length = 4
+
+[git_branch]
+symbol = " "
+style = "#7aa2f7"
+
+[python]
+symbol = " "
+style = "#f6c177"
+
+[character]
+success_symbol = "[❯](bold #9ccfd8)"
+error_symbol = "[❯](bold #eb6f92)"

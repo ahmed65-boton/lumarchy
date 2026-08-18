@@ -10,6 +10,7 @@ pacman -Syu --needed --noconfirm \
   archiso \
   base-devel \
   git \
+  qemu-desktop \
   shellcheck \
   shfmt \
   sudo

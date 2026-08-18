@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+wallpaper_dir=/usr/share/backgrounds/lumarchy
+state_dir=${XDG_STATE_HOME:-"${HOME}/.local/state"}/lumarchy
+state_file=${state_dir}/wallpaper-index
+mkdir -p -- "${state_dir}"
+
+index=1
+if [[ -r ${state_file} ]]; then
+  read -r index < "${state_file}" || index=0
+fi
+index=$((index % 3 + 1))
+wallpaper="${wallpaper_dir}/wallpaper${index}.jpg"
+
+[[ -r ${wallpaper} ]] || {
+  notify-send "Lumarchy" "Missing ${wallpaper}" || true
+  exit 1
+}
+
+hyprctl hyprpaper wallpaper ", ${wallpaper}, cover" >/dev/null
+printf '%s\n' "${index}" > "${state_file}"
+notify-send -t 1500 "Lumarchy wallpaper" "wallpaper${index}.jpg" || true

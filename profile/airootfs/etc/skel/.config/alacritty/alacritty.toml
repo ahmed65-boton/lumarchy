@@ -1,14 +1,15 @@
 [window]
-padding = { x = 12, y = 12 }
-opacity = 0.94
+padding = { x = 14, y = 14 }
+opacity = 0.92
+decorations = "None"
 
 [font]
-size = 11.0
+size = 12.0
 
 [colors.primary]
-background = "#1a1b26"
-foreground = "#c0caf5"
+background = "#120d18"
+foreground = "#eadff2"
 
 [colors.cursor]
-text = "#1a1b26"
-cursor = "#c0caf5"
+text = "#120d18"
+cursor = "#d98df0"

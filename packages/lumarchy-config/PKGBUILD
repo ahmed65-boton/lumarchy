@@ -1,0 +1,25 @@
+pkgname=lumarchy-config
+pkgver=2.0.0
+pkgrel=1
+pkgdesc='Lumarchy Hyprland desktop, applications, defaults, and wallpapers'
+arch=('any')
+license=('MIT')
+depends=(
+  alacritty bash-completion blueman bluez bluez-utils brightnessctl cliphist
+  git gnome-keyring google-chrome grim hyprland hyprpaper libnotify mako
+  nautilus network-manager-applet networkmanager noto-fonts noto-fonts-emoji
+  otf-font-awesome pavucontrol pipewire pipewire-alsa pipewire-pulse playerctl
+  polkit-kde-agent powershell-bin python sddm slurp starship sudo swayidle
+  swaylock visual-studio-code-bin waybar wireplumber wl-clipboard wofi
+  xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-user-dirs xdg-utils
+  xorg-xwayland zsh
+)
+source=('lumarchy-rootfs.tar' 'lumarchy-wallpapers.tar')
+sha256sums=('SKIP' 'SKIP')
+
+package() {
+  cp -a "${srcdir}/rootfs/." "${pkgdir}/"
+  install -d "${pkgdir}/usr/share/backgrounds/lumarchy"
+  install -m 0644 "${srcdir}/wallpapers/"*.jpg \
+    "${pkgdir}/usr/share/backgrounds/lumarchy/"
+}
